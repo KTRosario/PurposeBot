@@ -72,7 +72,7 @@ if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True
 
 
-st.title("Meet Navi, your IE Purpose Companion🤖", divider = 'rainbow')
+st.title("Meet Navi, your IE Purpose Companion🤖")
 # Initialize placeholders
 chat_placeholder = st.empty()
 input_placeholder = st.empty()
