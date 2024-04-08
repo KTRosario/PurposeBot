@@ -78,7 +78,7 @@ chat_placeholder = st.empty()
 input_placeholder = st.empty()
 
 # Display the conversation history
-with chat_placeholder.container(height=500, border=True):
+with chat_placeholder.container(height=300, border=True):
     for message in reversed(st.session_state.conversation):
         if message['sender'] == 'user':
             # Flex container for user message
