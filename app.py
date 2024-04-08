@@ -125,3 +125,4 @@ with input_placeholder.container():
 
 if submit_button and handle_message():
     st.session_state['user_input'] = ''  # Attempt to reset the input field
+    st.experimental_rerun()
