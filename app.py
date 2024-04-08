@@ -59,10 +59,10 @@ user_html = f'<img src="data:image/png;base64,{user_base64}" style="width: 40px;
 
 # Function to get the assistant's response
 def get_assistant_response(user_input=""):
-    message = openai.beta.threads.messages.create(thread_id=assistant_thread.id, role="user", content=user_input)
-    run = openai.beta.threads.runs.create(thread_id=assistant_thread.id, assistant_id=assistant_id)
-    run = wait_on_run(run, assistant_thread)
-    messages = openai.beta.threads.messages.list(thread_id=assistant_thread.id, order="asc", after=message.id)
+    message = openai.beta.threads.messages.create(thread_id=st.session_state.assistant_thread.id, role="user", content=user_input)
+    run = openai.beta.threads.runs.create(thread_id=st.session_state.assistant_thread.id, assistant_id=assistant_id)
+    run = wait_on_run(run, st.session_state.assistant_thread)
+    messages = openai.beta.threads.messages.list(thread_id=st.session_state.assistant_thread.id, order="asc", after=message.id)
     return messages.data[0].content[0].text.value
 
 # Initialize session state for conversation history and interaction flag if not already set
