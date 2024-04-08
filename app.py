@@ -74,12 +74,10 @@ if 'first_interaction' not in st.session_state:
 
 st.title("Meet Navi, your IE Purpose Companion🤖")
 # Initialize placeholders
-chat_placeholder = st.empty()
-input_placeholder = st.empty()
 
 # Display the conversation history
-with chat_placeholder.container():
-    for message in st.session_state.conversation:
+with st.container():
+    for message in reversed(st.session_state.conversation):
         if message['sender'] == 'user':
             # Flex container for user message
             st.markdown(f"""
@@ -119,7 +117,7 @@ def handle_message():
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
 
 # Render the input box
-with input_placeholder.container():
+with st.container():
     user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
     submit_button = st.button("Send")
 
