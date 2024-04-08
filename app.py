@@ -78,7 +78,7 @@ chat_placeholder = st.empty()
 input_placeholder = st.empty()
 
 # Display the conversation history
-with chat_placeholder.container(height=300, border=True):
+with chat_placeholder.container(height=400):
     for message in reversed(st.session_state.conversation):
         if message['sender'] == 'user':
             # Flex container for user message
@@ -113,7 +113,7 @@ def handle_message():
         st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
         bot_response = get_assistant_response(user_input)
         st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
-    
+    st.session_state.user_input = ""
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
