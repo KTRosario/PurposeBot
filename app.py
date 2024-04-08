@@ -29,15 +29,12 @@ st.set_page_config(
     }
 )
 
-# Initialize OpenAI client and assistant
-@st.cache_resource
-def load_openai_client_and_assistant():
-    openai.api_key = api_key
-    client = openai.beta.assistants.retrieve(assistant_id)
-    assistant_thread = openai.beta.threads.create()
-    return client, assistant_thread
+openai.api_key = api_key  # This is where we set the API key
 
-client, assistant_thread = load_openai_client_and_assistant()
+# Initialize an assistant thread for each session
+if 'assistant_thread' not in st.session_state:
+    st.session_state.assistant_thread = openai.beta.threads.create()
+
 
 # Function to monitor the assistant's response
 def wait_on_run(run, thread):
@@ -75,7 +72,7 @@ if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True
 
 
-st.title("Meet Navi, your IE Purpose Companion🤖")
+st.title("Meet Navi, your IE Purpose Companion🤖", divider = 'rainbow')
 # Initialize placeholders
 chat_placeholder = st.empty()
 input_placeholder = st.empty()
