@@ -121,3 +121,7 @@ placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state
 # Render the input box
 with input_placeholder.container():
     user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
+    submit_button = st.button("Send")
+
+    if submit_button:
+        handle_message()
