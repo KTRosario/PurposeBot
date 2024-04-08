@@ -125,4 +125,4 @@ with input_placeholder.container():
 
 if submit_button:
     handle_message()
-    
+    st.experimental_rerun()
