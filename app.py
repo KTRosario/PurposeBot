@@ -113,7 +113,7 @@ def handle_message():
         st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
         bot_response = get_assistant_response(user_input)
         st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
-    st.session_state.user_input = ""
+    
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
@@ -125,4 +125,4 @@ with input_placeholder.container():
 
 if submit_button:
     handle_message()
-    
+    st.session_state.user_input = ""
