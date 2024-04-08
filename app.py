@@ -123,6 +123,6 @@ with input_placeholder.container():
     user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
     submit_button = st.button("Send")
 
-if submit_button:
-    handle_message()
-    st.experimental_rerun()
+    if submit_button:
+        handle_message()
+        
