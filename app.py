@@ -79,7 +79,7 @@ input_placeholder = st.empty()
 
 # Display the conversation history
 with chat_placeholder.container(height=500, border=True):
-    for message in st.session_state.conversation:
+    for message in reversed(st.session_state.conversation):
         if message['sender'] == 'user':
             # Flex container for user message
             st.markdown(f"""
