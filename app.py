@@ -40,7 +40,7 @@ if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
 if 'conversation' not in st.session_state:
-    st.session_state.conversation = [{"role": "assistant", "content": "Hello! What's your name?",}]
+    st.session_state.conversation = []
 
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
