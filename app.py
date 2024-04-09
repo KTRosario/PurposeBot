@@ -74,14 +74,14 @@ for message in st.session_state.conversation:
 
 # React to user input
 if prompt := st.chat_input("Write your message here"):
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar=user_image_path):
         st.markdown(prompt)
 
     # Add user message to chat history
     st.session_state.conversation.append({"role": "user", "content": prompt})
 
     # Display assistant response in chat message container
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=avatar_image_path):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
