@@ -53,18 +53,10 @@ def wait_on_run(run, thread):
         time.sleep(0.5)
     return run
 
-# Function to convert image to base64
-def img_to_base64(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-    
+
 avatar_image_path = "imgs/Navi2.png"
-avatar_base64 = img_to_base64(avatar_image_path)
-avatar_html = f'<img src="data:image/png;base64,{avatar_base64}" style="width: 40px; height: 40px; border-radius: 50%;" align="left" />'
 
 user_image_path = "imgs/user.png"
-user_base64 = img_to_base64(user_image_path)
-user_html = f'<img src="data:image/png;base64,{user_base64}" style="width: 40px; height: 40px; border-radius: 50%;" align="left" />'
 
 # Function to get the assistant's response
 def get_assistant_response(user_input=""):
@@ -93,7 +85,7 @@ if prompt := st.chat_input("Write your message here"):
     st.session_state.conversation.append({"role": "user", "content": prompt})
 
     # Display assistant response in chat message container
-    with st.chat_message("assistant", avatar=avatar_image_path):
+    with st.chat_message("assistant"):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
