@@ -75,13 +75,11 @@ if 'conversation' not in st.session_state:
     st.session_state.conversation = []
 
 
-# Main chat interface loop
-def display_chat():
-    for message in st.session_state.conversation:
-        if message['sender'] == 'user':
-            st.chat_message( name="User", avatar=user_html, key='user' + str(message['time'])).write(message['text'])
-        else:
-            st.chat_message( name="Assistant", avatar=avatar_html, key='bot' + str(message['time'])) .write(message['text'])
+for message in st.session_state.conversation:
+    if message['sender'] == 'user':
+        st.chat_message( name="User", avatar=user_html, key='user' + str(message['time'])).write(message['text'])
+    else:
+        st.chat_message( name="Assistant", avatar=avatar_html, key='bot' + str(message['time'])) .write(message['text'])
 
 
 # Function to handle message submission (Modified)
@@ -91,10 +89,8 @@ def handle_message():
         st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
         bot_response = get_assistant_response(user_input)
         st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
-        display_chat() 
 
-# Display the conversation history
-display_chat()  # Initial display
+
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
