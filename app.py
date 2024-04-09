@@ -150,7 +150,9 @@ with chat_placeholder.container(height=400):
                 </div>
             """, unsafe_allow_html=True)
 
-
+def handle_keyboard_event(event):
+  if event.key == 'Enter' and event.ctrl_key:
+    handle_message()   
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
@@ -163,6 +165,4 @@ with input_placeholder.container():
 if submit_button:
     handle_message()
 
-def handle_keyboard_event(event):
-  if event.key == 'Enter' and event.ctrl_key:
-    handle_message()                   
+                
