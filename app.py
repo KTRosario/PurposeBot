@@ -62,6 +62,10 @@ user_image_path = "imgs/user.png"
 user_base64 = img_to_base64(user_image_path)
 user_html = f'<img src="data:image/png;base64,{user_base64}" style="width: 40px; height: 40px; border-radius: 50%;" align="left" />'
 
+for conversation in st.session_state.conversation:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
 
 # Function to get the assistant's response
 def get_assistant_response(user_input=""):
