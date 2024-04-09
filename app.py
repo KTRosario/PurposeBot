@@ -65,19 +65,19 @@ def get_assistant_response(user_input=""):
     messages = openai.beta.threads.messages.list(thread_id=st.session_state.assistant_thread.id, order="asc", after=message.id)
     return messages.data[0].content[0].text.value
 
-# Initialize session state for conversation history and interaction flag if not already set
+# Initialize conversation history 
 if 'conversation' not in st.session_state:
     st.session_state.conversation = []
-if 'first_interaction' not in st.session_state:
-    st.session_state.first_interaction = True
 
+# Main chat interface loop
+def display_chat():
+    for message in st.session_state.conversation:
+        if message['sender'] == 'user':
+            st.chat_message(message['text'], is_user=True, key='user' + str(message['time']))  
+        else:
+            st.chat_message(message['text'], key='bot' + str(message['time'])) 
 
-st.title("Meet Navi, your IE Purpose Companion🤖")
-# Initialize placeholders
-chat_placeholder = st.empty()
-input_placeholder = st.empty()
-
-# Function to handle message submission
+# Function to handle message submission (Modified)
 def handle_message():
     user_input = st.session_state.user_input.strip()
     if user_input:
@@ -86,80 +86,15 @@ def handle_message():
         bot_response = get_assistant_response(user_input)
         st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
 
-        # Trigger a re-render
-        if 'temp_key' not in st.session_state:
-            st.session_state.temp_key = 0
-        st.session_state.temp_key += 1  
-
-        # Force update of the chat display
-        chat_placeholder.empty()  # Clear the container
-
-        # Now redisplay the chat (this part of your code remains as-is)
-        with chat_placeholder.container(height=400):
-            for message in reversed(st.session_state.conversation):
-                if message['sender'] == 'user':
-                    # Flex container for user message
-                    st.markdown(f"""
-                        <div style='display:flex;justify-content:flex-end;align-items:flex-start;margin-bottom:10px;'>
-                            <div style='background-color:#0097DC;padding:15px;border-radius:20px;color:white;box-shadow: 2px 2px 4px #000000;flex-grow:1;margin-right:10px;'>
-                                {message['text']}
-                            </div>
-                            <div style='flex-shrink:0;'>
-                                <img src="data:image/png;base64,{user_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                            </div>
-                        </div>
-                    """, unsafe_allow_html=True)
-                else:
-                    # Flex container for bot message
-                    st.markdown(f"""
-                        <div style='display:flex;align-items:flex-start;margin-bottom:10px;'>
-                            <div style='flex-shrink:0;margin-right: 10px;'>
-                                <img src="data:image/png;base64,{avatar_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                            </div>
-                            <div style='background-color:#23207E;padding:15px;border-radius:20px;color:white;box-shadow: -2px 2px 4px #000000;flex-grow:1;'>
-                                {message['text']}
-                            </div>
-                        </div>
-                    """, unsafe_allow_html=True)
+        # Update the chat display
+        display_chat()  
 
 # Display the conversation history
-with chat_placeholder.container(height=400):
-    for message in reversed(st.session_state.conversation):
-        if message['sender'] == 'user':
-            # Flex container for user message
-            st.markdown(f"""
-                <div style='display:flex;justify-content:flex-end;align-items:flex-start;margin-bottom:10px;'>
-                    <div style='background-color:#0097DC;padding:15px;border-radius:20px;color:white;box-shadow: 2px 2px 4px #000000;flex-grow:1;margin-right:10px;'>
-                        {message['text']}
-                    </div>
-                    <div style='flex-shrink:0;'>
-                        <img src="data:image/png;base64,{user_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-        else:
-            # Flex container for bot message
-            st.markdown(f"""
-                <div style='display:flex;align-items:flex-start;margin-bottom:10px;'>
-                    <div style='flex-shrink:0;margin-right: 10px;'>
-                        <img src="data:image/png;base64,{avatar_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                    </div>
-                    <div style='background-color:#23207E;padding:15px;border-radius:20px;color:white;box-shadow: -2px 2px 4px #000000;flex-grow:1;'>
-                        {message['text']}
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-
-
+display_chat()  # Initial display
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
 
 # Render the input box
-with input_placeholder.container():
-    user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
-    submit_button = st.button("Send")
+user_input = st.chat_input("Type your message here...", key="user_input", placeholder=placeholder_text, label_visibility='collapsed')
 
-if submit_button:
-    handle_message()
-                    
