@@ -86,14 +86,14 @@ if prompt := st.chat_input("Write your message here"):
         st.session_state.first_interaction = False  # Set flag to False
     else:
         # Display user message in chat message container
-        with st.chat_message("user"):
+        with st.chat_message("user",avatar=user_image_path):
             st.markdown(prompt)
 
     # Add user message to chat history
     st.session_state.conversation.append({"role": "user", "content": prompt})
 
     # Display assistant response in chat message container
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=avatar_image_path):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
