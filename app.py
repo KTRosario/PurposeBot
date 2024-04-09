@@ -86,39 +86,44 @@ def handle_message():
         bot_response = get_assistant_response(user_input)
         st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
 
-        # Trigger a re-render by modifying a temporary session state variable
+        # Trigger a re-render
         if 'temp_key' not in st.session_state:
             st.session_state.temp_key = 0
         st.session_state.temp_key += 1  
 
+        # Force update of the chat display
+        chat_placeholder.empty()  # Clear the container
+
+        # Now redisplay the chat (this part of your code remains as-is)
+        with chat_placeholder.container(height=400):
+            for message in reversed(st.session_state.conversation):
+                if message['sender'] == 'user':
+                    # Flex container for user message
+                    st.markdown(f"""
+                        <div style='display:flex;justify-content:flex-end;align-items:flex-start;margin-bottom:10px;'>
+                            <div style='background-color:#0097DC;padding:15px;border-radius:20px;color:white;box-shadow: 2px 2px 4px #000000;flex-grow:1;margin-right:10px;'>
+                                {message['text']}
+                            </div>
+                            <div style='flex-shrink:0;'>
+                                <img src="data:image/png;base64,{user_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    # Flex container for bot message
+                    st.markdown(f"""
+                        <div style='display:flex;align-items:flex-start;margin-bottom:10px;'>
+                            <div style='flex-shrink:0;margin-right: 10px;'>
+                                <img src="data:image/png;base64,{avatar_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
+                            </div>
+                            <div style='background-color:#23207E;padding:15px;border-radius:20px;color:white;box-shadow: -2px 2px 4px #000000;flex-grow:1;'>
+                                {message['text']}
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
 
 # Display the conversation history
-with chat_placeholder.container(height=400):
-    for message in reversed(st.session_state.conversation):
-        if message['sender'] == 'user':
-            # Flex container for user message
-            st.markdown(f"""
-                <div style='display:flex;justify-content:flex-end;align-items:flex-start;margin-bottom:10px;'>
-                    <div style='background-color:#0097DC;padding:15px;border-radius:20px;color:white;box-shadow: 2px 2px 4px #000000;flex-grow:1;margin-right:10px;'>
-                        {message['text']}
-                    </div>
-                    <div style='flex-shrink:0;'>
-                        <img src="data:image/png;base64,{user_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
-        else:
-            # Flex container for bot message
-            st.markdown(f"""
-                <div style='display:flex;align-items:flex-start;margin-bottom:10px;'>
-                    <div style='flex-shrink:0;margin-right: 10px;'>
-                        <img src="data:image/png;base64,{avatar_base64}" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;" />
-                    </div>
-                    <div style='background-color:#23207E;padding:15px;border-radius:20px;color:white;box-shadow: -2px 2px 4px #000000;flex-grow:1;'>
-                        {message['text']}
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
+
 
 
 # Change the placeholder text based on whether it's the user's first interaction
