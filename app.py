@@ -62,11 +62,6 @@ user_image_path = "imgs/user.png"
 user_base64 = img_to_base64(user_image_path)
 user_html = f'<img src="data:image/png;base64,{user_base64}" style="width: 40px; height: 40px; border-radius: 50%;" align="left" />'
 
-for conversation in st.session_state.conversation:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-
 # Function to get the assistant's response
 def get_assistant_response(user_input=""):
     message = openai.beta.threads.messages.create(thread_id=st.session_state.assistant_thread.id, role="user", content=user_input)
@@ -77,25 +72,21 @@ def get_assistant_response(user_input=""):
 
 
 for message in st.session_state.conversation:
-    if message['sender'] == 'user':
-        st.chat_message( name="User", avatar=user_image_path).write(message['text'])
-    else:
-        st.chat_message( name="Assistant", avatar=avatar_image_path) .write(message['text'])
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
+# React to user input
+if prompt := st.chat_input("You can ask me questions about start ups."):
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-# Function to handle message submission (Modified)
-def handle_message():
-    user_input = st.session_state.user_input.strip()
-    if user_input:
-        st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
-        bot_response = get_assistant_response(user_input)
-        st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
-
-
-
-# Change the placeholder text based on whether it's the user's first interaction
-placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
-
-# Render the input box
-user_input = st.chat_input(key="user_input", placeholder=placeholder_text)
-
+    # Add user message to chat history
+    st.session_state.conversation.append({"role": "user", "content": prompt})
+    
+    # Display assistant response in chat message container
+    with st.chat_message("assistant"):
+        response = get_assistant_response(prompt)
+        st.markdown(response)
+    # Add assistant response to chat history
+    st.session_state.messages.append({"role": "assistant","content": response})
