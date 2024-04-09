@@ -3,7 +3,7 @@
 import streamlit as st
 import time
 import openai 
-import base64
+
 
 # Set your OpenAI API key and assistant ID here
 api_key         = st.secrets["api_key"]
@@ -40,7 +40,7 @@ if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
 if 'conversation' not in st.session_state:
-    st.session_state.conversation = [{"role": "assistant", "content": "Hello! I'm Navi. What's your name?"}]
+    st.session_state.conversation = [{"role": "assistant", "content": "Hello! What's your name?"}]
 
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
