@@ -40,7 +40,7 @@ if 'conversation' not in st.session_state:
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
 
-    
+
 # Function to monitor the assistant's response
 def wait_on_run(run, thread):
     while run.status == "queued" or run.status == "in_progress":
@@ -101,5 +101,5 @@ display_chat()  # Initial display
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
 
 # Render the input box
-user_input = st.chat_input("Type your message here...", key="user_input", placeholder=placeholder_text, label_visibility='collapsed')
+user_input = st.chat_input(key="user_input", placeholder=placeholder_text, label_visibility='collapsed')
 
