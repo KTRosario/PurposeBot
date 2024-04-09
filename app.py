@@ -74,12 +74,8 @@ for message in st.session_state.conversation:
 
 # React to user input
 if prompt := st.chat_input("Write your message here"):
-    if st.session_state.first_interaction:  # Check if this is the first interaction 
-        st.session_state.first_interaction = False  # Set flag to False
-    else:
-        # Display user message in chat message container
-        with st.chat_message("user"):
-            st.markdown(prompt)
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
     # Add user message to chat history
     st.session_state.conversation.append({"role": "user", "content": prompt})
