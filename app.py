@@ -83,8 +83,8 @@ for message in st.session_state.conversation:
 # React to user input
 if prompt := st.chat_input("Write your message here"):
     if st.session_state.first_interaction:  # Check if this is the first interaction 
-            with st.chat_message("assistant"):
-                st.markdown("Hi! What is your name?")
+        with st.chat_message("assistant"):
+            st.markdown("Hi! What is your name?")
         st.session_state.first_interaction = False  # Set flag to False
     else:
         # Display user message in chat message container
