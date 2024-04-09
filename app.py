@@ -104,7 +104,9 @@ with chat_placeholder.container(height=400):
                     </div>
                 </div>
             """, unsafe_allow_html=True)
-            
+if submit_button:
+    handle_message()
+                    
 # Function to handle message submission
 def handle_message():
     user_input = st.session_state.user_input.strip()
@@ -127,6 +129,3 @@ with input_placeholder.container():
     user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
     submit_button = st.button("Send")
 
-if submit_button:
-    handle_message()
-        
