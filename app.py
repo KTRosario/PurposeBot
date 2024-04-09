@@ -39,10 +39,6 @@ openai.api_key = api_key  # This is where we set the API key
 if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
-for message in st.session_state.conversation:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
 if 'conversation' not in st.session_state:
     st.session_state.conversation = [{"role": "assistant", "content": "Hello! I'm Navi. What's your name?"}]
 
@@ -79,7 +75,9 @@ def get_assistant_response(user_input=""):
     return messages.data[0].content[0].text.value
 
 
-
+for message in st.session_state.conversation:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 
 # React to user input
@@ -88,14 +86,14 @@ if prompt := st.chat_input("Write your message here"):
         st.session_state.first_interaction = False  # Set flag to False
     else:
         # Display user message in chat message container
-        with st.chat_message("user",avatar=user_image_path):
+        with st.chat_message("user"):
             st.markdown(prompt)
 
     # Add user message to chat history
     st.session_state.conversation.append({"role": "user", "content": prompt})
 
     # Display assistant response in chat message container
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=avatar_image_path):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
