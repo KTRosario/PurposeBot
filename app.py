@@ -29,7 +29,7 @@ st.set_page_config(
     }
 )
 
-st.markdown("<h3 style='background:#0284fe;padding:20px;border-radius:10px;text-align:center;'>Meet Navi, your IE Purpose Conmpanion 🤖</h3>",
+st.markdown("<h3 style='background:#0284fe;padding:20px;border-radius:10px;text-align:center;'>Meet Navi, your IE Purpose Companion 🤖</h3>",
         unsafe_allow_html=True)
 st.markdown("")
 
