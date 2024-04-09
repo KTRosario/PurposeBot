@@ -35,7 +35,6 @@ st.markdown("")
 st.write("Navi is your AI-powered IE purpose companion. Chat with Navi to help you reflect and define your skills and how they might help you define your purpose to yourself, others, society, and the environment.")
 st.markdown("")
 st.write("Why don't you start by introducing yourself")
-st.markdown("")
 st.divider()
 
 openai.api_key = api_key  # This is where we set the API key
