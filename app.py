@@ -40,7 +40,7 @@ if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
 if 'conversation' not in st.session_state:
-    st.session_state.conversation = [{"role": "assistant", "content": "Hello! What's your name?"}]
+    st.session_state.conversation = [{"role": "assistant", "content": "Hello! What's your name?",}]
 
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
@@ -86,7 +86,6 @@ if prompt := st.chat_input("Write your message here"):
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        response = get_assistant_response(prompt)
-        st.markdown(response)
+        response = st.write_stream(get_assistant_response(prompt))
     # Add assistant response to chat history
     st.session_state.conversation.append({"role": "assistant","content": response})
