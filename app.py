@@ -35,7 +35,12 @@ openai.api_key = api_key  # This is where we set the API key
 if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
+if 'conversation' not in st.session_state:
+    st.session_state.conversation = []
+if 'first_interaction' not in st.session_state:
+    st.session_state.first_interaction = True 
 
+    
 # Function to monitor the assistant's response
 def wait_on_run(run, thread):
     while run.status == "queued" or run.status == "in_progress":
