@@ -79,9 +79,9 @@ if 'conversation' not in st.session_state:
 def display_chat():
     for message in st.session_state.conversation:
         if message['sender'] == 'user':
-            st.chat_message(message['text'], name="User", avatar=user_html, key='user' + str(message['time']))  
+            st.chat_message( name="User", avatar=user_html, key='user' + str(message['time'])).write(message['text'])
         else:
-            st.chat_message(message['text'], name="Assistant", avatar=avatar_html, key='bot' + str(message['time'])) 
+            st.chat_message( name="Assistant", avatar=avatar_html, key='bot' + str(message['time'])) .write(message['text'])
 
 
 # Function to handle message submission (Modified)
