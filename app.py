@@ -82,7 +82,9 @@ if prompt := st.chat_input("Write your message here"):
 
     # Display assistant response in chat message container
     with st.chat_message("assistant", avatar=avatar_image_path):
+        with st.spinner("thinking...")
         response = get_assistant_response(prompt)
+        st.success()
         st.markdown(response)
     # Add assistant response to chat history
     st.session_state.conversation.append({"role": "assistant","content": response})
