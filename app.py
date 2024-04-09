@@ -89,4 +89,4 @@ if prompt := st.chat_input("You can ask me questions about start ups."):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant","content": response})
+    st.session_state.conversation.append({"role": "assistant","content": response})
