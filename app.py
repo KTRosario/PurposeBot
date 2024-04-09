@@ -79,6 +79,10 @@ for message in st.session_state.conversation:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+#introduce bot and ask name
+with st.chat_message("user"):
+    st.markdown("Hi my name is Navi, your IE Purpose Companion, what is your name?")
+
 # React to user input
 if prompt := st.chat_input("Write your message here"):
     # Display user message in chat message container
