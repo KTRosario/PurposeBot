@@ -76,7 +76,7 @@ for message in st.session_state.conversation:
         st.markdown(message["content"])
 
 # React to user input
-if prompt := st.chat_input("You can ask me questions about start ups."):
+if prompt := st.chat_input("Write your message here"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
