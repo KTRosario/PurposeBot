@@ -32,9 +32,9 @@ st.set_page_config(
 st.markdown("<h3 style='background:#0284fe;padding:20px;border-radius:10px;text-align:center;'>Meet Navi, your IE Purpose Companion 🤖</h3>",
         unsafe_allow_html=True)
 st.markdown("")
-st.write_stream("Navi is your AI-powered IE purpose companion. Chat with Navi to help you reflect and define your skills and how they might help you define your purpose to yourself, others, society, and the environment.")
+st.write("Navi is your AI-powered IE purpose companion. Chat with Navi to help you reflect and define your skills and how they might help you define your purpose to yourself, others, society, and the environment.")
 st.markdown("")
-st.write_stream("Why don't you start by introducing yourself")
+st.write("Why don't you start by introducing yourself")
 st.markdown("")
 
 openai.api_key = api_key  # This is where we set the API key
