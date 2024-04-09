@@ -37,6 +37,7 @@ if 'assistant_thread' not in st.session_state:
 
 if 'conversation' not in st.session_state:
     st.session_state.conversation = []
+
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
 
@@ -73,9 +74,9 @@ def get_assistant_response(user_input=""):
 
 for message in st.session_state.conversation:
     if message['sender'] == 'user':
-        st.chat_message( name="User", avatar=user_html, key='user' + str(message['time'])).write(message['text'])
+        st.chat_message( name="User", avatar=user_image_path).write(message['text'])
     else:
-        st.chat_message( name="Assistant", avatar=avatar_html, key='bot' + str(message['time'])) .write(message['text'])
+        st.chat_message( name="Assistant", avatar=avatar_image_path) .write(message['text'])
 
 
 # Function to handle message submission (Modified)
