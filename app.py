@@ -40,7 +40,7 @@ if 'assistant_thread' not in st.session_state:
     st.session_state.assistant_thread = openai.beta.threads.create()
 
 if 'conversation' not in st.session_state:
-    st.session_state.conversation = []
+    st.session_state.conversation = [{"role": "assistant", "content": "Hello! I'm Navi. What's your name?"}]
 
 if 'first_interaction' not in st.session_state:
     st.session_state.first_interaction = True 
@@ -79,22 +79,22 @@ for message in st.session_state.conversation:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-#introduce bot and ask name
-with st.chat_message("assistant"):
-    st.markdown("Hello! May I ask for your name?")
 
 # React to user input
 if prompt := st.chat_input("Write your message here"):
-    # Display user message in chat message container
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    if st.session_state.first_interaction:  # Check if this is the first interaction 
+        st.session_state.first_interaction = False  # Set flag to False
+    else:
+        # Display user message in chat message container
+        with st.chat_message("user"):
+            st.markdown(prompt)
 
     # Add user message to chat history
     st.session_state.conversation.append({"role": "user", "content": prompt})
-    
+
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.conversation.append({"role": "assistant","content": response})
+    st.session_state.conversation.
