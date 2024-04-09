@@ -77,6 +77,21 @@ st.title("Meet Navi, your IE Purpose Companion🤖")
 chat_placeholder = st.empty()
 input_placeholder = st.empty()
 
+# Function to handle message submission
+def handle_message():
+    user_input = st.session_state.user_input.strip()
+    if user_input:
+        st.session_state.first_interaction = False
+        st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
+        bot_response = get_assistant_response(user_input)
+        st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
+
+        # Trigger a re-render by modifying a temporary session state variable
+        if 'temp_key' not in st.session_state:
+            st.session_state.temp_key = 0
+        st.session_state.temp_key += 1  
+
+
 # Display the conversation history
 with chat_placeholder.container(height=400):
     for message in reversed(st.session_state.conversation):
@@ -104,22 +119,7 @@ with chat_placeholder.container(height=400):
                     </div>
                 </div>
             """, unsafe_allow_html=True)
-if submit_button:
-    handle_message()
-                    
-# Function to handle message submission
-def handle_message():
-    user_input = st.session_state.user_input.strip()
-    if user_input:
-        st.session_state.first_interaction = False
-        st.session_state.conversation.append({'sender': 'user', 'text': user_input, 'time': time.time()})
-        bot_response = get_assistant_response(user_input)
-        st.session_state.conversation.append({'sender': 'bot', 'text': bot_response, 'time': time.time()})
 
-        # Trigger a re-render by modifying a temporary session state variable
-        if 'temp_key' not in st.session_state:
-            st.session_state.temp_key = 0
-        st.session_state.temp_key += 1  
 
 # Change the placeholder text based on whether it's the user's first interaction
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
@@ -129,3 +129,6 @@ with input_placeholder.container():
     user_input = st.text_area("Type Here", key="user_input", placeholder=placeholder_text, label_visibility='collapsed', on_change=handle_message)
     submit_button = st.button("Send")
 
+if submit_button:
+    handle_message()
+                    
