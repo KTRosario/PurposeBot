@@ -70,10 +70,6 @@ def get_assistant_response(user_input=""):
     messages = openai.beta.threads.messages.list(thread_id=st.session_state.assistant_thread.id, order="asc", after=message.id)
     return messages.data[0].content[0].text.value
 
-# Initialize conversation history 
-if 'conversation' not in st.session_state:
-    st.session_state.conversation = []
-
 
 for message in st.session_state.conversation:
     if message['sender'] == 'user':
