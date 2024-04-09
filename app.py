@@ -101,5 +101,5 @@ display_chat()  # Initial display
 placeholder_text = "Hi, my name is Navi. What is your name?" if st.session_state.first_interaction else "Type your message here..."
 
 # Render the input box
-user_input = st.chat_input(key="user_input", placeholder=placeholder_text, label_visibility='collapsed')
+user_input = st.chat_input(key="user_input", placeholder=placeholder_text)
 
