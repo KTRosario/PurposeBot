@@ -80,7 +80,7 @@ if prompt := st.chat_input("Write your message here"):
         st.markdown(prompt)
 
     # Add user message to chat history
-    st.session_state.conversation.append({"role": "user", "content": prompt, "avatar"=user_image_path})
+    st.session_state.conversation.append({"role": "user", "content": prompt,"avatar":user_image_path})
 
     # Display assistant response in chat message container
     with st.chat_message("assistant", avatar=avatar_image_path):
@@ -88,4 +88,4 @@ if prompt := st.chat_input("Write your message here"):
             response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.conversation.append({"role": "assistant","content": response, "avatar"=avatar_image_path})
+    st.session_state.conversation.append({"role": "assistant","content": response,"avatar":avatar_image_path})
