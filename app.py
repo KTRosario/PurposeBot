@@ -31,9 +31,7 @@ st.set_page_config(
 
 st.markdown("<h3 style='background:#0284fe;padding:20px;border-radius:10px;text-align:center;'>Meet Navi, your IE Purpose Companion 🤖</h3>",
         unsafe_allow_html=True)
-st.markdown("")
 st.write("Navi is your AI-powered IE purpose companion. Chat with Navi to help you reflect and define your skills and how they might help you define your purpose to yourself, others, society, and the environment.")
-st.markdown("")
 st.write("Why don't you start by introducing yourself")
 st.divider()
 
@@ -82,7 +80,7 @@ if prompt := st.chat_input("Write your message here"):
         st.markdown(prompt)
 
     # Add user message to chat history
-    st.session_state.conversation.append({"role": "user", "content": prompt})
+    st.session_state.conversation.append({"role": "user", "content": prompt, "avatar"=user_image_path})
 
     # Display assistant response in chat message container
     with st.chat_message("assistant", avatar=avatar_image_path):
@@ -90,4 +88,4 @@ if prompt := st.chat_input("Write your message here"):
             response = get_assistant_response(prompt)
         st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.conversation.append({"role": "assistant","content": response})
+    st.session_state.conversation.append({"role": "assistant","content": response, "avatar"=avatar_image_path})
