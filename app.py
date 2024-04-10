@@ -31,6 +31,7 @@ st.set_page_config(
 
 st.markdown("<h3 style='background:#0284fe;padding:20px;border-radius:10px;text-align:center;'>Meet Navi, your IE Purpose Companion 🤖</h3>",
         unsafe_allow_html=True)
+st.divider()
 st.write("Navi is your AI-powered IE purpose companion. Chat with Navi to help you reflect and define your skills and how they might help you define your purpose to yourself, others, society, and the environment.")
 st.write("Why don't you start by introducing yourself")
 st.divider()
@@ -70,7 +71,7 @@ def get_assistant_response(user_input=""):
 
 
 for message in st.session_state.conversation:
-    with st.chat_message(message["role"]):
+    with st.chat_message(message["role"], avatar=message["avatar"]):
         st.markdown(message["content"])
 
 
